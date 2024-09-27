@@ -1,9 +1,16 @@
 import streamlit as st
+import cv2
+from model import face_equals
 
 
 def equals(first_face, second_face):
     if first_face and second_face:
-        print('Отправка лиц на сервер')
+        cosine_dist = face_equals.get_cosine(cv2.imread(first_face), cv2.imread(second_face))
+
+        if cosine_dist > 0.6:
+            st.text('Лица одинаковые')
+        else:
+            st.text('Лица разные')
     else:
         st.error('Нужны 2 картинки с лицом')
 
