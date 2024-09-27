@@ -1,5 +1,8 @@
+import numpy as np
+
 from model import face_equals
 import cv2
+from PIL import Image
 
 
 def test_empty():
