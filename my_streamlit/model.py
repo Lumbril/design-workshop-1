@@ -10,8 +10,11 @@ class FaceEquals:
     def get_faces(self, img: np.ndarray) -> list:
         return self.face_analysis.get(img)
 
-    def get_first_face(self, img: np.ndarray) -> Image:
-        return self.get_faces(img)[0].embedding
+    def get_first_face(self, img: np.ndarray) -> np.array:
+        x, y, x2, y2 = self.get_faces(img)[0].bbox
+        cropped = img[int(y):int(y2), int(x):int(x2)]
+
+        return cropped
 
     def get_distance(self, img_first: np.ndarray, img_second: np.ndarray) -> float:
         return np.linalg.norm(self.get_faces(img_first)[0].embedding -
